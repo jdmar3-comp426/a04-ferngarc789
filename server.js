@@ -27,7 +27,7 @@ app.post("/app/new/", (req, res) => {
 	const stmt = db.prepare("INSERT INTO userinfo (user, pass) VALUES (?, ?)")
 	const info = stmt.run(req.body.user, md5(req.body.pass));
 	res.json({
-		"message": info.changes + " record created: " + "ID "+ req.body.id + " (201)",
+		"message": info.changes + " record created: " + "ID "+ this.id + " (201)",
 	})
 })
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
@@ -43,17 +43,9 @@ app.get("/app/user/:id", (req, res) => {	// This appears to have been succesful.
 	
 });
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
-app.patch("/app/update/user/:id", (req, res) => {	
-	const stmt = db.prepare("SELECT * FROM userinfo WHERE id = ").all();
-	res.status(200).json(stmt);
-	
-});
+
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
-app.delete("/app/delete/user/:id", (req, res) => {	
-	const stmt = db.prepare("SELECT * FROM userinfo WHERE id = ").all();
-	res.status(200).json(stmt);
-	
-});
+
 // Default response for any other request
 app.use(function(req, res){
 	res.json("Your API is working!");
